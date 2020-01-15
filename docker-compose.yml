@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  apache:
+    build:
+      context: ./docker/apache
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8080:80"
+    environment:
+      - PHP_ERROR_REPORTING='E_ALL & ~E_STRICT'
+
+  mysql:
+    image: mysql:5.5
+    volumes:
+      - ./var/docker/mysql:/var/lib/mysql
+    environment:
+      - "MYSQL_ROOT_PASSWORD=cdrapi"
+      - "MYSQL_USER=cdrapi"
+      - "MYSQL_PASSWORD=cdrapi"
+      - "MYSQL_DATABASE=asteriskcdrdb"
+    ports:
+      - "33061:3306"
